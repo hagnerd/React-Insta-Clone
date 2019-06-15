@@ -28,13 +28,13 @@ class App extends React.Component {
   render() {
     const filteredPosts = this.state.filter !== ""
       ? this.state.posts.filter(post => post.username.toLowerCase() === this.state.filter.toLowerCase())
-      : null;
+      : this.state.posts;
 
     return (
       <>
         <SearchBar handleSubmit={this.filterByUsername} currentFilter={this.state.filter} />
         <main className="w-7/12 mx-auto">
-          <PostContainer posts={filteredPosts === null ? this.state.posts : filteredPosts} />
+          <PostContainer posts={filteredPosts} />
         </main>
       </>
     );
