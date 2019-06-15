@@ -1,7 +1,6 @@
 import React from "react";
 import { FaRegHeart, FaRegComment } from "react-icons/fa";
 import { MdMoreHoriz } from "react-icons/md";
-import moment from "moment";
 import PropTypes from "prop-types";
 import CommentSection from "../CommentSection/CommentSection";
 import Comment from "../CommentSection/Comment";
@@ -14,10 +13,6 @@ export default function Post({
   timestamp,
   comments
 }) {
-  let n = new moment();
-  let t = new Date(timestamp);
-  console.log(n);
-  console.log(t);
 
   return (
     <li className="border border-gray-400 rounded-sm my-4">
