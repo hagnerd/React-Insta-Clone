@@ -1,5 +1,6 @@
 import React from "react";
 import { FaRegHeart, FaRegComment } from "react-icons/fa";
+import { MdMoreHoriz } from 'react-icons/md'
 import PropTypes from "prop-types";
 import CommentSection from "../CommentSection/CommentSection";
 import Comment from "../CommentSection/Comment";
@@ -18,6 +19,7 @@ export default function Post({
       <div className="flex p-4 h-full items-center">
         <img src={thumbnailUrl} className="rounded-full mr-4 h-8 w-8" alt="" />
         <h3>{username}</h3>
+        <MdMoreHoriz size="1.5rem" className="ml-auto" />
       </div>
       <img className="w-full" src={imageUrl} alt="" />
       <div className="p-4">

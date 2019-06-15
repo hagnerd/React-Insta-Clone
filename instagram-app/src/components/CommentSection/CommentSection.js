@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { MdMoreHoriz } from 'react-icons/md'
 import Comment from './Comment';
 
 export default class CommentSection extends React.Component {
@@ -9,6 +8,7 @@ export default class CommentSection extends React.Component {
 
     this.state = {
       comments: [],
+      commentText: "",
     }
   }  
 
@@ -31,17 +31,24 @@ export default class CommentSection extends React.Component {
     return (
       <>
         <ul>
-          {this.state.comments.map(comment => <Comment key={comment.id} {...comment} />)}
+          {this.state.comments.map(comment => 
+            <Comment key={comment.id} {...comment} />)
+          }
         </ul>
         <h5 className="text-xs text-gray-600 my-2">{this.props.timestamp}</h5>
         <div className="border-b border-gray-300 w-full mx-auto" />
-        <div className="flex justify-between h-10 mt-4 items-center">
+        
+        <form className="flex justify-between h-10 mt-4 items-center">
           <input
             placeholder="Add a comment..."
             className="text-gray-700 text-sm"
           />
-          <MdMoreHoriz size="1.5rem" />
-        </div>
+          <button 
+            disabled={this.state.commentText === ""}
+            className={`${this.state.commentText !== "" ? "text-blue-400" : "text-blue-300 opacity-75 cursor-not-allowed"}`}
+          >Post</button>
+        </form>
+
       </>
     );
   }
