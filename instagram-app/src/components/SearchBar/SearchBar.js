@@ -10,13 +10,13 @@ export default function Searchbar() {
   return (
     <header className="flex justify-around h-20 items-center border-b border-gray-300 w-5/6 mx-auto">
       <div className="flex h-full w-1/4 items-center">
-        <FaInstagram size="2.5rem" />
+        <FaInstagram size="2.5rem" color="#2d3748" />
         <div className="border-l border-gray-600 h-10 mx-4" />
         <h1>Instagram</h1>
       </div>
 
       <input
-        className="w-1/4 mx-auto border border-gray-400 rounded py-1 text-center bg-gray-100"
+        className="w-1/4 self-center border border-gray-400 rounded py-1 text-center bg-gray-100"
         placeholder="Search"
       />
 
