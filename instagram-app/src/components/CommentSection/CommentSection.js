@@ -45,11 +45,7 @@ export default class CommentSection extends React.Component {
     this.setState(prevState => ({
       comments: prevState.comments.concat([newComment]),
       commentText: "",
-    }), () => {
-      // TODO: Remove this before submitting 
-      console.log(`Sending new comment to the server`)
-      console.log(newComment);
-    });
+    }));
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React from "react";
-import { FaRegHeart, FaRegComment } from "react-icons/fa";
+import { FaRegHeart, FaHeart, FaRegComment } from "react-icons/fa";
 import { MdMoreHoriz } from 'react-icons/md'
 import PropTypes from "prop-types";
 import CommentSection from "../CommentSection/CommentSection";
@@ -27,11 +27,22 @@ export default function Post({
       <div className="p-4">
         <div>
           <div className="flex">
-            <FaRegHeart 
-              onClick={toggleLike}
-              size="1.7rem" 
-              className={`${doesCurrentUserLike ? "fill-current text-red-400" : "text-gray-800"} mr-4 cursor-pointer`} 
-            />
+            {doesCurrentUserLike 
+                ? (
+                  <FaHeart 
+                    onClick={toggleLike}
+                    size="1.7rem"
+                    className="fill-current text-red-600 mr-4 cursor-pointer"
+                  />
+                )
+                : (
+                  <FaRegHeart 
+                    onClick={toggleLike}
+                    size="1.7rem"
+                    className="mr-4 cursor-pointer text-gray-800"
+                  />
+                )
+            }
             <FaRegComment
               size="1.7rem"
               className="text-gray-800"
@@ -55,5 +66,4 @@ Post.propTypes = {
   comments: PropTypes.arrayOf(PropTypes.shape(Comment.propTypes)),
   doesCurrentUserLike: PropTypes.bool.isRequired,
   toggleLike: PropTypes.func.isRequired,
-
 };
