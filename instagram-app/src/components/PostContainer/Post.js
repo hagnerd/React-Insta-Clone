@@ -1,6 +1,5 @@
 import React from "react";
 import { FaRegHeart, FaRegComment } from "react-icons/fa";
-import { MdMoreHoriz } from "react-icons/md";
 import PropTypes from "prop-types";
 import CommentSection from "../CommentSection/CommentSection";
 import Comment from "../CommentSection/Comment";

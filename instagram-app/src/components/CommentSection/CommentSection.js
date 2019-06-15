@@ -13,7 +13,11 @@ export default class CommentSection extends React.Component {
   }  
 
   static propTypest = {
-    comments: PropTypes.arrayOf(PropTypes.shape(Comment.propTypes)).isRequired,
+    comments: PropTypes.arrayOf(PropTypes.shape({
+      username: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequried,
+      id: PropTypes.number.isRequied,
+    })).isRequired,
     timestamp: PropTypes.string.isRequired,
   }
 
@@ -26,22 +30,20 @@ export default class CommentSection extends React.Component {
   render() {
     return (
       <>
-      <ul>
-        {this.state.comments.map(comment => <Comment key={comment.id} {...comment} />)}
-      </ul>
-      <h5 className="text-xs text-gray-600 my-2">{this.props.timestamp}</h5>
-      <div className="border-b border-gray-300 w-full mx-auto" />
-      <div className="flex justify-between h-10 mt-4 items-center">
-        <input
-          placeholder="Add a comment..."
-          className="text-gray-700 text-sm"
-        />
-        <MdMoreHoriz size="1.5rem" />
-      </div>
-  </>
-  )
+        <ul>
+          {this.state.comments.map(comment => <Comment key={comment.id} {...comment} />)}
+        </ul>
+        <h5 className="text-xs text-gray-600 my-2">{this.props.timestamp}</h5>
+        <div className="border-b border-gray-300 w-full mx-auto" />
+        <div className="flex justify-between h-10 mt-4 items-center">
+          <input
+            placeholder="Add a comment..."
+            className="text-gray-700 text-sm"
+          />
+          <MdMoreHoriz size="1.5rem" />
+        </div>
+      </>
+    );
   }
 }
 
-CommentSection.propTypes = {
-}
