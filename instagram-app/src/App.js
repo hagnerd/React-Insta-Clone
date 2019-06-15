@@ -15,7 +15,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.setState({
-      posts: dummyData,
+      posts: dummyData.map(post => ({ ...post, doesCurrentUserLike: false })),
     });
   }
 
@@ -25,6 +25,12 @@ class App extends React.Component {
     });
   }
 
+  toggleUserLike = id => {
+    this.setState(prevState => ({
+      posts: prevState.posts.map(post => post.id === id ? { ...post, doesCurrentUserLike: !post.doesCurrentUserLike, likes: !post.doesCurrentUserLike ? post.likes + 1 : post.likes - 1 } : post),
+    }));
+  }
+
   render() {
     const filteredPosts = this.state.filter !== ""
       ? this.state.posts.filter(post => post.username.toLowerCase() === this.state.filter.toLowerCase())
@@ -32,12 +38,12 @@ class App extends React.Component {
 
     return (
       <>
-        <SearchBar handleSubmit={this.filterByUsername} currentFilter={this.state.filter} />
-        <main className="w-7/12 mx-auto">
-          <PostContainer posts={filteredPosts} />
-        </main>
-      </>
-    );
+      <SearchBar handleSubmit={this.filterByUsername} currentFilter={this.state.filter} />
+      <main className="w-7/12 mx-auto">
+        <PostContainer posts={filteredPosts} toggleUserLike={this.toggleUserLike} />
+      </main>
+  </>
+  );
   }
 }
 

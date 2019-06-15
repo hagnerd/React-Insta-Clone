@@ -11,7 +11,9 @@ export default function Post({
   imageUrl,
   likes,
   timestamp,
-  comments
+  comments,
+  doesCurrentUserLike,
+  toggleLike,
 }) {
 
   return (
@@ -25,7 +27,11 @@ export default function Post({
       <div className="p-4">
         <div>
           <div className="flex">
-            <FaRegHeart size="1.7rem" className="text-gray-800 mr-4" />
+            <FaRegHeart 
+              onClick={toggleLike}
+              size="1.7rem" 
+              className={`${doesCurrentUserLike ? "fill-current text-red-400" : "text-gray-800"} mr-4 cursor-pointer`} 
+            />
             <FaRegComment
               size="1.7rem"
               className="text-gray-800"
@@ -46,5 +52,8 @@ Post.propTypes = {
   imageUrl: PropTypes.string.isRequired,
   likes: PropTypes.number.isRequired,
   timestamp: PropTypes.string.isRequired,
-  comments: PropTypes.arrayOf(PropTypes.shape(Comment.propTypes))
+  comments: PropTypes.arrayOf(PropTypes.shape(Comment.propTypes)),
+  doesCurrentUserLike: PropTypes.bool.isRequired,
+  toggleLike: PropTypes.func.isRequired,
+
 };
