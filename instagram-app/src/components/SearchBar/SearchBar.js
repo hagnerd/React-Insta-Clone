@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import {
   FaInstagram,
   FaRegCompass,
@@ -6,13 +7,34 @@ import {
   FaRegUser
 } from "react-icons/fa";
 
+const initialState = {
+  searchValue: '',
+}
+
 export default class Searchbar extends React.Component {
+  static propTypes = {
+    handleSubmit: PropTypes.func.isRequired,    
+  }
+
   constructor(props) {
     super(props);
 
-    this.state = {
-      searchValue: '',
-    }
+    this.state = initialState  
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.handleSubmit(this.state.searchValue);
+
+    this.setState(initialState);
+  }
+
+  handleChange = (event) => {
+    const value = event.target.value;
+
+    this.setState({
+      searchValue: value,
+    })
   }
 
   render() {
@@ -25,11 +47,14 @@ export default class Searchbar extends React.Component {
           <h1>Instagram</h1>
         </div>
 
-        <form className="w-1/3 self-center">
+        <form className="w-1/3 self-center" onSubmit={this.handleSubmit}>
           <input
             className="w-full border border-gray-400 rounded py-1 text-center bg-gray-100"
             placeholder="Search"
             value={this.state.searchValue}
+            aria-label="Filter by username"
+            name="searchValue"
+            onChange={this.handleChange}
           />
         </form>
 
@@ -50,3 +75,4 @@ export default class Searchbar extends React.Component {
     );
   }
 }
+
