@@ -14,6 +14,7 @@ const initialState = {
 export default class Searchbar extends React.Component {
   static propTypes = {
     handleSubmit: PropTypes.func.isRequired,    
+    currentFilter: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -25,8 +26,6 @@ export default class Searchbar extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.handleSubmit(this.state.searchValue);
-
-    this.setState(initialState);
   }
 
   handleChange = (event) => {
@@ -35,6 +34,10 @@ export default class Searchbar extends React.Component {
     this.setState({
       searchValue: value,
     })
+  }
+
+  handleClear = () => {
+    this.setState(initialState, () => this.props.handleSubmit(this.state.searchValue));
   }
 
   render() {
@@ -47,31 +50,39 @@ export default class Searchbar extends React.Component {
           <h1>Instagram</h1>
         </div>
 
-        <form className="w-1/3 self-center" onSubmit={this.handleSubmit}>
+        <form className="flex w-1/3 self-center items-center" onSubmit={this.handleSubmit}>
           <input
-            className="w-full border border-gray-400 rounded py-1 text-center bg-gray-100"
+            className={`border border-gray-400 rounded py-1 text-center bg-gray-100${this.props.currentFilter === "" ? " w-full" : " w-3/4"}`}
             placeholder="Search"
             value={this.state.searchValue}
             aria-label="Filter by username"
             name="searchValue"
             onChange={this.handleChange}
           />
-        </form>
 
-        <nav className="w-1/6">
-          <ul className="flex justify-around w-full">
-            <li>
-              <FaRegCompass size="1.5rem" color="#4a5568" />
-            </li>
-            <li>
-              <FaRegHeart size="1.5rem" color="#4a5568" />
-            </li>
-            <li>
-              <FaRegUser size="1.5rem" color="#4a5568" />
-            </li>
-          </ul>
-        </nav>
-      </header>
+        <button 
+          type="button" 
+          onClick={this.handleClear}
+          className={`ml-2 px-3 py-1 bg-red-300 border border-red-400 hover:bg-red-400 hover:border-red-500 rounded ${this.props.currentFilter !== "" ? "visible" : "invisible"}`}
+        >
+          X
+        </button>
+      </form>
+
+      <nav className="w-1/6">
+        <ul className="flex justify-around w-full">
+          <li>
+            <FaRegCompass size="1.5rem" color="#4a5568" />
+          </li>
+          <li>
+            <FaRegHeart size="1.5rem" color="#4a5568" />
+          </li>
+          <li>
+            <FaRegUser size="1.5rem" color="#4a5568" />
+          </li>
+        </ul>
+      </nav>
+    </header>
     );
   }
 }

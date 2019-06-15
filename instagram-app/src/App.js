@@ -9,6 +9,7 @@ class App extends React.Component {
 
     this.state = {
       posts: [],
+      filter: "",
     }
   }
 
@@ -18,12 +19,22 @@ class App extends React.Component {
     });
   }
 
+  filterByUsername = username => {
+    this.setState({
+      filter: username,
+    });
+  }
+
   render() {
+    const filteredPosts = this.state.filter !== ""
+      ? this.state.posts.filter(post => post.username.toLowerCase() === this.state.filter.toLowerCase())
+      : null;
+
     return (
       <>
-        <SearchBar />
+        <SearchBar handleSubmit={this.filterByUsername} currentFilter={this.state.filter} />
         <main className="w-7/12 mx-auto">
-          <PostContainer posts={this.state.posts} />
+          <PostContainer posts={filteredPosts === null ? this.state.posts : filteredPosts} />
         </main>
       </>
     );
