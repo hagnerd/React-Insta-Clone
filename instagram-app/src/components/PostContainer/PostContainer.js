@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import Post from "./Post";
 
-export default function PostContainer({ posts, toggleUserLike }) {
+export default function PostContainer({ posts, toggleUserLike, currentlyLoggedInUser }) {
   
   return (
     <ul className="w-full">
@@ -10,6 +10,7 @@ export default function PostContainer({ posts, toggleUserLike }) {
         <Post 
           key={post.id} 
           toggleLike={() => toggleUserLike(post.id)}
+          currentlyLoggedInUser={currentlyLoggedInUser}
           {...post} />
       ))}
     </ul>

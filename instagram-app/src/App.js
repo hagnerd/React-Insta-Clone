@@ -10,6 +10,7 @@ class App extends React.Component {
     this.state = {
       posts: [],
       filter: "",
+      currentlyLoggedInUser: "currentlyLoggedInUser",
     }
   }
 
@@ -40,7 +41,7 @@ class App extends React.Component {
       <>
       <SearchBar handleSubmit={this.filterByUsername} currentFilter={this.state.filter} />
       <main className="w-7/12 mx-auto">
-        <PostContainer posts={filteredPosts} toggleUserLike={this.toggleUserLike} />
+        <PostContainer currentlyLoggedInUser={this.state.currentlyLoggedInUser} posts={filteredPosts} toggleUserLike={this.toggleUserLike} />
       </main>
   </>
   );

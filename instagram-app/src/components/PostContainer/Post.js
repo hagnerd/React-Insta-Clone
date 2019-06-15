@@ -14,6 +14,7 @@ export default function Post({
   comments,
   doesCurrentUserLike,
   toggleLike,
+  currentlyLoggedInUser,
 }) {
 
   return (
@@ -51,7 +52,7 @@ export default function Post({
           </div>
           <h4 className="font-semibold text-sm my-1">{likes} likes</h4>
         </div>
-        <CommentSection comments={comments} timestamp={timestamp} />
+        <CommentSection currentlyLoggedInUser={currentlyLoggedInUser} comments={comments} timestamp={timestamp} />
       </div>
     </li>
   );
