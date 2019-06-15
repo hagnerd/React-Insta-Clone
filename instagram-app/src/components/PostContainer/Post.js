@@ -33,16 +33,7 @@ export default function Post({
           </div>
           <h4 className="font-semibold text-sm my-1">{likes} likes</h4>
         </div>
-        <CommentSection comments={comments} />
-        <h5 className="text-xs text-gray-600 my-2">{timestamp}</h5>
-        <div className="border-b border-gray-300 w-full mx-auto" />
-        <div className="flex justify-between h-10 mt-4 items-center">
-          <input
-            placeholder="Add a comment..."
-            className="text-gray-700 text-sm"
-          />
-          <MdMoreHoriz size="1.5rem" />
-        </div>
+        <CommentSection comments={comments} timestamp={timestamp} />
       </div>
     </li>
   );
