@@ -1,4 +1,5 @@
 import React from "react";
+import FuzzySearch from 'fuzzy-search';
 import dummyData from "./dummy-data";
 import SearchBar from "./components/SearchBar/SearchBar";
 import PostContainer from "./components/PostContainer/PostContainer";
@@ -15,9 +16,30 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({
-      posts: dummyData.map(post => ({ ...post, doesCurrentUserLike: false })),
-    });
+    let localState = window.localStorage.getItem('posts');
+
+    if (localState !== null) {
+      this.setState({
+        posts: JSON.parse(localState),
+      });
+    } else {
+      this.setState({
+        posts: dummyData.map(post => ({ ...post, doesCurrentUserLike: false })),
+      })
+    }
+  }
+
+  componentDidUpdate(_prevProps, prevState) {
+    if (this.state.posts !== prevState.posts && prevState.posts.length !== 0) {
+      this.syncToLocalStorage();
+    }
+  }
+
+  syncToLocalStorage = () => {
+    console.log("I was synced to local storage")
+    let posts = JSON.stringify(this.state.posts);
+
+    window.localStorage.setItem('posts', posts);
   }
 
   filterByUsername = username => {
@@ -33,18 +55,20 @@ class App extends React.Component {
   }
 
   render() {
+    const searcher = new FuzzySearch(this.state.posts, ['username']);
+
     const filteredPosts = this.state.filter !== ""
-      ? this.state.posts.filter(post => post.username.toLowerCase() === this.state.filter.toLowerCase())
+      ? searcher.search(this.state.filter) 
       : this.state.posts;
 
     return (
       <>
-      <SearchBar handleSubmit={this.filterByUsername} currentFilter={this.state.filter} />
-      <main className="w-7/12 mx-auto">
-        <PostContainer currentlyLoggedInUser={this.state.currentlyLoggedInUser} posts={filteredPosts} toggleUserLike={this.toggleUserLike} />
-      </main>
-  </>
-  );
+        <SearchBar handleSubmit={this.filterByUsername} currentFilter={this.state.filter} />
+        <main className="w-7/12 mx-auto">
+          <PostContainer currentlyLoggedInUser={this.state.currentlyLoggedInUser} posts={filteredPosts} toggleUserLike={this.toggleUserLike} />
+        </main>
+      </>
+    );
   }
 }
 
