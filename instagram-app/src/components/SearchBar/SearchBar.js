@@ -7,6 +7,8 @@ import {
   FaRegUser
 } from "react-icons/fa";
 
+import { logoutUser } from 'utils'
+
 const initialState = {
   searchValue: '',
 }
@@ -45,7 +47,7 @@ export default class Searchbar extends React.Component {
     return (
       <header className="flex justify-around h-20 items-center border-b border-gray-300 w-5/6 mx-auto">
         <div className="flex h-full items-center">
-          <FaInstagram size="2.5rem" color="#2d3748" />
+          <FaInstagram color="#2d3748" className="h-10 w-10" />
           <div className="border-l border-gray-600 h-10 mx-4" />
           <h1>Instagram</h1>
         </div>
@@ -72,13 +74,13 @@ export default class Searchbar extends React.Component {
       <nav className="w-1/6">
         <ul className="flex justify-around w-full">
           <li>
-            <FaRegCompass size="1.5rem" color="#4a5568" />
+            <FaRegCompass className="h-6 w-6" color="#4a5568" />
           </li>
           <li>
-            <FaRegHeart size="1.5rem" color="#4a5568" />
+            <FaRegHeart className="h-6 w-6" color="#4a5568" />
           </li>
           <li>
-            <FaRegUser size="1.5rem" color="#4a5568" />
+            <FaRegUser onClick={logoutUser} className="h-6 w-6" color="#4a5568" />
           </li>
         </ul>
       </nav>
